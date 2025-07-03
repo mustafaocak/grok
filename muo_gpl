@@ -1,0 +1,7 @@
+GPL_VORTEX_BASE %{GPL_DATETIME_MILLIS:record_timestamp} %{LOGLEVEL:log.level} \[%{NOTSPACE} %{NOTSPACE}\]
+GPL_VORTEX_ERROR_REQUEST_CONTEXT %{NOTSPACE:request_context_class}: \[resourceURI = %{DATA:resource_uri}, service = %{NOTSPACE:vortex_service}\]
+GPL_VORTEX_ERROR_LOG %{GPL_VORTEX_BASE} - Message: %{DATA:error_message}(?: - Full request URL: \[%{URI:vortex_request_url}\],(?: Request context: \[%{GPL_VORTEX_ERROR_REQUEST_CONTEXT:vortex_request_context}\],)? method: \[%{WORD:http_verb}\], request parameters: \[\{%{DATA:http_request_parameters}\}\], user agent: \[%{DATA:user_agent}\], host: \[%{HOSTNAME:vortex_host}\], remote host: \[%{IPORHOST:vortex_remote_host}\](?:, request id: \[%{DATA:request_id}\])?)?$\s+%{GREEDYDATA:stack_trace}
+GPL_VORTEX_LENGTHY_OPERATIONS_LOG %{GPL_VORTEX_BASE} - Method invocation took %{INT:operation_duration:int} ms: %{DATA:operation}$\s*Stacktrace:$\s+%{GREEDYDATA:stack_trace}
+GPL_VORTEX_GENERIC_LOG %{GPL_VORTEX_BASE} - %{DATA:vortex_log_message}$(?:\s+%{GREEDYDATA:stack_trace})?
+GPL_VORTEX_AUTH_LOG %{GPL_VORTEX_BASE} - \[?%{IP:client_ip}\]? - request-URI: %{DATA:resource_uri} - (?:Auth: principal: %{GPL_USERNAME:principal} - method: %{DATA:vortex_auth_method} - status: %{NOTSPACE:vortex_auth_status}|%{GREEDYDATA:vortex_auth_message})
+GPL_VORTEX_WRITE_LOG %{GPL_VORTEX_BASE} - %{WORD:vortex_action}\(%{DATA:resource_uri}(?:, %{DATA:vortex_action_context})?\), token: %{NOTSPACE:vortex_token}, principal: %{GPL_USERNAME:principal} %{DATA:vortex_action_status}$
